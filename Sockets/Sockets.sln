@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sockets.Client", "Sockets.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sockets.Server", "Sockets.Server\Sockets.Server.csproj", "{E3BDD579-9907-4E28-8D2D-A15A9040F83C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sockets.Encryptor", "Sockets.Encryptor\Sockets.Encryptor.csproj", "{CF3839B4-71B3-40F5-A57E-B851FB577D30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{E3BDD579-9907-4E28-8D2D-A15A9040F83C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3BDD579-9907-4E28-8D2D-A15A9040F83C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3BDD579-9907-4E28-8D2D-A15A9040F83C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF3839B4-71B3-40F5-A57E-B851FB577D30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF3839B4-71B3-40F5-A57E-B851FB577D30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF3839B4-71B3-40F5-A57E-B851FB577D30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF3839B4-71B3-40F5-A57E-B851FB577D30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

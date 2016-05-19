@@ -2,43 +2,47 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using Sockets.Encryptor;
 
 namespace Sockets.Client
 {
     class Program
     {
-        // адрес и порт сервера, к которому будем подключаться
-        static int port = 8005; // порт сервера
-        static string address = "127.0.0.1"; // адрес сервера
+        static string localhost = "127.0.0.1";
+        private static string _password;
 
         static void Main(string[] args)
         {
             try
             {
-                IPEndPoint ipPoint = new IPEndPoint(IPAddress.Parse(address), port);
+                Console.WriteLine("Type a port to connect: ");
+                var port = Console.ReadLine();
+                int intPort = int.Parse(port);
 
-                Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                // подключаемся к удаленному хосту
-                socket.Connect(ipPoint);
-                Console.Write("Введите сообщение:");
-                string message = Console.ReadLine();
-                byte[] data = Encoding.Unicode.GetBytes(message);
-                socket.Send(data);
+                var ipEndPoint = new IPEndPoint(IPAddress.Parse(localhost), intPort);
+                var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                socket.Connect(ipEndPoint);
 
-                // получаем ответ
-                data = new byte[256]; // буфер для ответа
-                StringBuilder builder = new StringBuilder();
-                int bytes = 0; // количество полученных байт
+                Console.Write("Type message:");
+                var message = Console.ReadLine();
+                Console.Write("Type server verification code:");
+                _password = Console.ReadLine();
+
+                message = _password.Encrypt() + ":" + message;
+                var byteData = Encoding.Unicode.GetBytes(message);
+                socket.Send(byteData);
+
+                byteData = new byte[256];
+                var stringBuilder = new StringBuilder();
 
                 do
                 {
-                    bytes = socket.Receive(data, data.Length, 0);
-                    builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
-                }
-                while (socket.Available > 0);
-                Console.WriteLine("ответ сервера: " + builder.ToString());
+                    var recievedBytes = socket.Receive(byteData, byteData.Length, 0);
+                    stringBuilder.Append(Encoding.Unicode.GetString(byteData, 0, recievedBytes));
+                } while (socket.Available > 0);
 
-                // закрываем сокет
+                Console.WriteLine("Server responded with a message: " + stringBuilder.ToString());
+
                 socket.Shutdown(SocketShutdown.Both);
                 socket.Close();
             }
