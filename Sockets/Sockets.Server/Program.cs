@@ -15,7 +15,7 @@ namespace Sockets.Server
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Type port in a range 7000-8000: ");
+            Console.WriteLine("Type a port num in a range 7000-8000: ");
             var port = Console.ReadLine();
             int intPort;
             if (!int.TryParse(port, out intPort) || intPort > 8000 || intPort < 7000)
@@ -62,7 +62,7 @@ namespace Sockets.Server
 
                         Console.WriteLine(DateTime.Now.ToShortTimeString() + ": " + string.Join(" ", descVords));
 
-                        response = "OK";
+                        response = "OK " + DateTime.UtcNow.ToLongDateString();
                     }
                     else
                     {
@@ -72,6 +72,7 @@ namespace Sockets.Server
 
                     dataBuffer = Encoding.Unicode.GetBytes(response);
                     handler.Send(dataBuffer);
+
 
                     // закрываем сокет
                     handler.Shutdown(SocketShutdown.Both);
